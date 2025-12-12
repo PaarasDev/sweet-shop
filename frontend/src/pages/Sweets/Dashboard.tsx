@@ -5,9 +5,13 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 
 const dummySweets = [
   { id: 1, name: "Chocolate Bar", price: 50, quantity: 10 },
-  { id: 2, name: "Strawberry Candy", price: 20, quantity: 0 },
+  { id: 2, name: "Strawberry Candy", price: 20, quantity: 33 },
   { id: 3, name: "Lollipop", price: 15, quantity: 25 },
-  { id: 4, name: "Mint Cookies", price: 80, quantity: 5 },
+  { id: 4, name: "Milk Cookies", price: 80, quantity: 5 },
+  { id: 5, name: "Gummy Bears", price: 30, quantity: 50 },
+  { id: 6, name: "Caramel Fudge", price: 60, quantity: 0 },
+  { id: 7, name: "Tiramisu", price: 70, quantity: 15 },
+  { id: 8, name: "Fruit Chews", price: 25, quantity: 40 },
 ];
 
 export default function Dashboard() {
