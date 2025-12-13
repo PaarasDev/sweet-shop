@@ -1,8 +1,26 @@
+import { useState } from "react";
 import { Button, TextField, Paper, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
+import { registerApi } from "../../api/auth.api";
 
 export default function Register() {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleRegister = async () => {
+    try {
+      const data = await registerApi(name, email, password);
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+
+      navigate("/dashboard");
+    } catch (err: any) {
+      alert(err.message);
+    }
+  };
 
   return (
     <Paper
@@ -15,18 +33,39 @@ export default function Register() {
     >
       <Typography variant="h5">Register</Typography>
 
-      <TextField fullWidth margin="normal" label="Name" />
-      <TextField fullWidth margin="normal" label="Email" />
-      <TextField fullWidth margin="normal" label="Password" type="password" />
+      <TextField
+        fullWidth
+        margin="normal"
+        label="Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+
+      <TextField
+        fullWidth
+        margin="normal"
+        label="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+
+      <TextField
+        fullWidth
+        margin="normal"
+        label="Password"
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
 
       <Button
         variant="contained"
         fullWidth
         color="primary"
-        onClick={() => navigate("/login")}
+        onClick={handleRegister}
         style={{ marginTop: 20 }}
       >
-        Register (Dummy)
+        Register
       </Button>
 
       <Typography style={{ marginTop: 10 }}>

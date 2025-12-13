@@ -1,7 +1,16 @@
 import { AppBar, Toolbar, Typography, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user") || "null");
+  const isAdmin = user?.role === "ADMIN";
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
+
   return (
     <AppBar position="static" color="primary" elevation={2}>
       <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
@@ -11,14 +20,22 @@ export default function Navbar() {
           <Button color="inherit" component={Link} to="/dashboard">
             Dashboard
           </Button>
-          
-          <Button color="inherit" component={Link} to="/admin">
-            Admin
-          </Button>
 
-          <Button color="inherit" component={Link} to="/login">
-            Login
-          </Button>
+          {isAdmin && (
+            <Button color="inherit" component={Link} to="/admin">
+              Admin
+            </Button>
+          )}
+
+          {user ? (
+            <Button color="inherit" onClick={handleLogout}>
+              Logout
+            </Button>
+          ) : (
+            <Button color="inherit" component={Link} to="/login">
+              Login
+            </Button>
+          )}
         </div>
       </Toolbar>
     </AppBar>

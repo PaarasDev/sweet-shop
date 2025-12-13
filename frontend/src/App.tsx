@@ -10,6 +10,8 @@ import SweetDetails from "./pages/Sweets/SweetDetails";
 import AdminPanel from "./pages/Admin/AdminPanel";
 import UpdateSweet from "./pages/Admin/UpdateSweet";
 
+import AdminRoute from "./routes/AdminRoute";
+
 function App() {
   return (
     <ThemeProvider theme={sweetTheme}>
@@ -21,10 +23,27 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/sweet/:id" element={<SweetDetails />} />
-          <Route path="/admin" element={<AdminPanel />} />
-          <Route path="/admin/update/:id" element={<UpdateSweet />} />
 
-          {/* Default route */}
+          {/* 🔐 PROTECTED ADMIN ROUTES */}
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <AdminPanel />
+              </AdminRoute>
+            }
+          />
+
+          <Route
+            path="/admin/update/:id"
+            element={
+              <AdminRoute>
+                <UpdateSweet />
+              </AdminRoute>
+            }
+          />
+
+          {/* Default */}
           <Route path="*" element={<Dashboard />} />
         </Routes>
       </Router>
